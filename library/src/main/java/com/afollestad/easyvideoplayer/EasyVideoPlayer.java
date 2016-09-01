@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -368,6 +369,18 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                     (mSource.getScheme().equals("http") || mSource.getScheme().equals("https"))) {
                 LOG("Loading web URI: " + mSource.toString());
                 mPlayer.setDataSource(mSource.toString());
+            } else if (mSource.getScheme() != null && (mSource.getScheme().equals("file") && mSource.getPath().contains("/android_assets/"))) {
+                LOG("Loading assets URI: " + mSource.toString());
+                AssetFileDescriptor afd;
+                afd = getContext().getAssets().openFd(mSource.toString().replace("file:///android_assets/", ""));
+                mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                afd.close();
+            } else if (mSource.getScheme() != null && mSource.getScheme().equals("asset")) {
+                LOG("Loading assets URI: " + mSource.toString());
+                AssetFileDescriptor afd;
+                afd = getContext().getAssets().openFd(mSource.toString().replace("asset://", ""));
+                mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                afd.close();
             } else {
                 LOG("Loading local URI: " + mSource.toString());
                 mPlayer.setDataSource(getContext(), mSource);
