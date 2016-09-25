@@ -935,6 +935,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             seekBar.setThumbTintList(s1);
             seekBar.setProgressTintList(s1);
+            seekBar.setSecondaryProgressTintList(s1);
         } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
             Drawable progressDrawable = DrawableCompat.wrap(seekBar.getProgressDrawable());
             seekBar.setProgressDrawable(progressDrawable);
