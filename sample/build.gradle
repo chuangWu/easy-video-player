@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 ext {
-    PUBLISH_VERSION = '0.2.12'
+    PUBLISH_VERSION = '0.2.13'
     TARGET_SDK = 24
-    BUILD_TOOLS = "24.0.1"
-    GOOGLE_LIBS = "24.2.0"
+    BUILD_TOOLS = "24.0.2"
+    GOOGLE_LIBS = "24.2.1"
 }
 
 android {
@@ -15,8 +15,9 @@ android {
         applicationId "com.afollestad.easyvideoplayersample"
         minSdkVersion 14
         targetSdkVersion TARGET_SDK
-        versionCode 14
+        versionCode 15
         versionName PUBLISH_VERSION
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -30,5 +31,5 @@ dependencies {
     compile project(':library')
 
     compile "com.android.support:appcompat-v7:$GOOGLE_LIBS"
-    compile 'com.afollestad.material-dialogs:core:0.9.0.1'
+    compile 'com.afollestad.material-dialogs:core:0.9.0.2'
 }

@@ -11,6 +11,7 @@ import android.graphics.Matrix;
 import android.graphics.PorterDuff;
 import android.graphics.SurfaceTexture;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -165,7 +166,6 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                     R.styleable.EasyVideoPlayer,
                     0, 0);
             try {
-
                 String source = a.getString(R.styleable.EasyVideoPlayer_evp_source);
                 if (source != null && !source.trim().isEmpty())
                     mSource = Uri.parse(source);
@@ -757,6 +757,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
             });
         }
 
+
         // Retrieve controls
         mSeeker = (SeekBar) mControlsFrame.findViewById(R.id.seeker);
         mSeeker.setOnSeekBarChangeListener(this);
@@ -766,8 +767,6 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
 
         mLabelDuration = (TextView) mControlsFrame.findViewById(R.id.duration);
         mLabelDuration.setText(Util.getDurationString(0, true));
-
-        invalidateThemeColors();
 
         mBtnRestart = (ImageButton) mControlsFrame.findViewById(R.id.btnRestart);
         mBtnRestart.setOnClickListener(this);
@@ -790,6 +789,8 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
 
         mLabelBottom = (TextView) mControlsFrame.findViewById(R.id.labelBottom);
         setBottomLabelText(mBottomLabelText);
+
+        invalidateThemeColors();
 
         setControlsEnabled(false);
         invalidateActions();
@@ -955,13 +956,36 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
         }
     }
 
+    private Drawable tintDrawable(@NonNull Drawable d, @ColorInt int color) {
+        d = DrawableCompat.wrap(d.mutate());
+        DrawableCompat.setTint(d, color);
+        return d;
+    }
+
+    private void tintSelector(@NonNull View view, @ColorInt int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view.getBackground() instanceof RippleDrawable) {
+            final RippleDrawable rd = (RippleDrawable) view.getBackground();
+            rd.setColor(ColorStateList.valueOf(Util.adjustAlpha(color, 0.3f)));
+        }
+    }
+
     private void invalidateThemeColors() {
         final int labelColor = Util.isColorDark(mThemeColor) ? Color.WHITE : Color.BLACK;
-        mControlsFrame.setBackgroundColor(Util.adjustAlpha(mThemeColor, 0.85f));
+        mControlsFrame.setBackgroundColor(Util.adjustAlpha(mThemeColor, 0.8f));
+        tintSelector(mBtnRestart, labelColor);
+        tintSelector(mBtnPlayPause, labelColor);
         mLabelDuration.setTextColor(labelColor);
         mLabelPosition.setTextColor(labelColor);
         setTint(mSeeker, labelColor);
-
+        mBtnRetry.setTextColor(labelColor);
+        tintSelector(mBtnRetry, labelColor);
+        mBtnSubmit.setTextColor(labelColor);
+        tintSelector(mBtnSubmit, labelColor);
+        mLabelCustom.setTextColor(labelColor);
+        mLabelBottom.setTextColor(labelColor);
+        mPlayDrawable = tintDrawable(mPlayDrawable.mutate(), labelColor);
+        mRestartDrawable = tintDrawable(mRestartDrawable.mutate(), labelColor);
+        mPauseDrawable = tintDrawable(mPauseDrawable.mutate(), labelColor);
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
