@@ -30,6 +30,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -180,9 +181,20 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                 mSubmitText = a.getText(R.styleable.EasyVideoPlayer_evp_submitText);
                 mBottomLabelText = a.getText(R.styleable.EasyVideoPlayer_evp_bottomText);
 
-                mRestartDrawable = a.getDrawable(R.styleable.EasyVideoPlayer_evp_restartDrawable);
-                mPlayDrawable = a.getDrawable(R.styleable.EasyVideoPlayer_evp_playDrawable);
-                mPauseDrawable = a.getDrawable(R.styleable.EasyVideoPlayer_evp_pauseDrawable);
+
+                int restartDrawableResId = a.getResourceId(R.styleable.EasyVideoPlayer_evp_restartDrawable, -1);
+                int playDrawableResId = a.getResourceId(R.styleable.EasyVideoPlayer_evp_playDrawable, -1);
+                int pauseDrawableResId = a.getResourceId(R.styleable.EasyVideoPlayer_evp_pauseDrawable, -1);
+
+                if (restartDrawableResId != -1) {
+                    mRestartDrawable = AppCompatResources.getDrawable(context, restartDrawableResId);
+                }
+                if (playDrawableResId != -1) {
+                    mPlayDrawable = AppCompatResources.getDrawable(context, playDrawableResId);
+                }
+                if (pauseDrawableResId != -1) {
+                    mPauseDrawable = AppCompatResources.getDrawable(context, pauseDrawableResId);
+                }
 
                 mHideControlsOnPlay = a.getBoolean(R.styleable.EasyVideoPlayer_evp_hideControlsOnPlay, true);
                 mAutoPlay = a.getBoolean(R.styleable.EasyVideoPlayer_evp_autoPlay, false);
@@ -211,11 +223,11 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
             mSubmitText = context.getResources().getText(R.string.evp_submit);
 
         if (mRestartDrawable == null)
-            mRestartDrawable = ContextCompat.getDrawable(context, R.drawable.evp_action_restart);
+            mRestartDrawable = AppCompatResources.getDrawable(context, R.drawable.evp_action_restart);
         if (mPlayDrawable == null)
-            mPlayDrawable = ContextCompat.getDrawable(context, R.drawable.evp_action_play);
+            mPlayDrawable = AppCompatResources.getDrawable(context, R.drawable.evp_action_play);
         if (mPauseDrawable == null)
-            mPauseDrawable = ContextCompat.getDrawable(context, R.drawable.evp_action_pause);
+            mPauseDrawable = AppCompatResources.getDrawable(context, R.drawable.evp_action_pause);
     }
 
     @Override
@@ -306,7 +318,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
 
     @Override
     public void setRestartDrawableRes(@DrawableRes int res) {
-        setRestartDrawable(ContextCompat.getDrawable(getContext(), res));
+        setRestartDrawable(AppCompatResources.getDrawable(getContext(), res));
     }
 
     @Override
@@ -317,7 +329,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
 
     @Override
     public void setPlayDrawableRes(@DrawableRes int res) {
-        setPlayDrawable(ContextCompat.getDrawable(getContext(), res));
+        setPlayDrawable(AppCompatResources.getDrawable(getContext(), res));
     }
 
     @Override
@@ -328,7 +340,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
 
     @Override
     public void setPauseDrawableRes(@DrawableRes int res) {
-        setPauseDrawable(ContextCompat.getDrawable(getContext(), res));
+        setPauseDrawable(AppCompatResources.getDrawable(getContext(), res));
     }
 
     @Override
