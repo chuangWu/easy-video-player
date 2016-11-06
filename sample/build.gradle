@@ -2,9 +2,9 @@ apply plugin: 'com.android.application'
 
 ext {
     PUBLISH_VERSION = '0.2.13'
-    TARGET_SDK = 24
-    BUILD_TOOLS = "24.0.2"
-    GOOGLE_LIBS = "24.2.1"
+    TARGET_SDK = 25
+    BUILD_TOOLS = "24.0.3"
+    GOOGLE_LIBS = "25.0.0"
 }
 
 android {
@@ -34,5 +34,5 @@ dependencies {
     compile project(':library')
 
     compile "com.android.support:appcompat-v7:$GOOGLE_LIBS"
-    compile 'com.afollestad.material-dialogs:core:0.9.0.2'
+    compile 'com.afollestad.material-dialogs:core:0.9.1.0'
 }
