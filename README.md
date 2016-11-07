@@ -30,9 +30,15 @@ Add this in your module's `build.gradle` file:
 ```gradle
 dependencies {
     // ... other dependencies
-    compile 'com.afollestad:easyvideoplayer:0.2.13'
+    compile 'com.afollestad:easyvideoplayer:0.3.0'
 }
 ```
+
+If it doesn't resolve through jCenter (like it *should*), add this to your app/build.gradle repositories:
+
+```gradle
+maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
+``
 
 ## Getting Started
 
