@@ -30,6 +30,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -159,6 +160,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
 
 
     private void init(Context context, AttributeSet attrs) {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setBackgroundColor(Color.BLACK);
 
         if (attrs != null) {
