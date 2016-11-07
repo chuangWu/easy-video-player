@@ -3,7 +3,7 @@
 Easy Video Player is a simple but powerful view that you can plugin to your apps to quickly get
 video playback working.
 
-<img src="https://raw.githubusercontent.com/afollestad/easy-video-player/master/art/showcase1.png" width="400px" />
+<img src="https://raw.githubusercontent.com/afollestad/easy-video-player/master/art/showcase2.png" width="400px" />
 
 ##### Features
 
@@ -72,7 +72,6 @@ all the controls and everything else are created by the player view itself.
 
 ```xml
 <com.afollestad.easyvideoplayer.EasyVideoPlayer xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/player"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
