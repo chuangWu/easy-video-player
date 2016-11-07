@@ -238,8 +238,16 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
 
     @Override
     public void setSource(@NonNull Uri source) {
+        boolean hadSource = mSource != null;
+        if (hadSource) stop();
         mSource = source;
-        if (mPlayer != null) prepare();
+        if (mPlayer != null) {
+            if (hadSource) {
+                sourceChanged();
+            } else {
+                prepare();
+            }
+        }
     }
 
     @Override
@@ -375,34 +383,52 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
         mInitialPosition = pos;
     }
 
+    private void sourceChanged() {
+        setControlsEnabled(false);
+        mSeeker.setProgress(0);
+        mSeeker.setEnabled(false);
+        mPlayer.reset();
+        if (mCallback != null)
+            mCallback.onPreparing(this);
+        try {
+            setSourceInternal();
+        } catch (IOException e) {
+            throwError(e);
+        }
+    }
+
+    private void setSourceInternal() throws IOException {
+        if (mSource.getScheme() != null &&
+                (mSource.getScheme().equals("http") || mSource.getScheme().equals("https"))) {
+            LOG("Loading web URI: " + mSource.toString());
+            mPlayer.setDataSource(mSource.toString());
+        } else if (mSource.getScheme() != null && (mSource.getScheme().equals("file") && mSource.getPath().contains("/android_assets/"))) {
+            LOG("Loading assets URI: " + mSource.toString());
+            AssetFileDescriptor afd;
+            afd = getContext().getAssets().openFd(mSource.toString().replace("file:///android_assets/", ""));
+            mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            afd.close();
+        } else if (mSource.getScheme() != null && mSource.getScheme().equals("asset")) {
+            LOG("Loading assets URI: " + mSource.toString());
+            AssetFileDescriptor afd;
+            afd = getContext().getAssets().openFd(mSource.toString().replace("asset://", ""));
+            mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            afd.close();
+        } else {
+            LOG("Loading local URI: " + mSource.toString());
+            mPlayer.setDataSource(getContext(), mSource);
+        }
+        mPlayer.prepareAsync();
+    }
+
     private void prepare() {
         if (!mSurfaceAvailable || mSource == null || mPlayer == null || mIsPrepared)
             return;
+        if (mCallback != null)
+            mCallback.onPreparing(this);
         try {
-            if (mCallback != null)
-                mCallback.onPreparing(this);
             mPlayer.setSurface(mSurface);
-            if (mSource.getScheme() != null &&
-                    (mSource.getScheme().equals("http") || mSource.getScheme().equals("https"))) {
-                LOG("Loading web URI: " + mSource.toString());
-                mPlayer.setDataSource(mSource.toString());
-            } else if (mSource.getScheme() != null && (mSource.getScheme().equals("file") && mSource.getPath().contains("/android_assets/"))) {
-                LOG("Loading assets URI: " + mSource.toString());
-                AssetFileDescriptor afd;
-                afd = getContext().getAssets().openFd(mSource.toString().replace("file:///android_assets/", ""));
-                mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-                afd.close();
-            } else if (mSource.getScheme() != null && mSource.getScheme().equals("asset")) {
-                LOG("Loading assets URI: " + mSource.toString());
-                AssetFileDescriptor afd;
-                afd = getContext().getAssets().openFd(mSource.toString().replace("asset://", ""));
-                mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-                afd.close();
-            } else {
-                LOG("Loading local URI: " + mSource.toString());
-                mPlayer.setDataSource(getContext(), mSource);
-            }
-            mPlayer.prepareAsync();
+            setSourceInternal();
         } catch (IOException e) {
             throwError(e);
         }
