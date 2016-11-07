@@ -137,6 +137,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     private boolean mControlsDisabled;
     private int mThemeColor = 0;
     private boolean mAutoFullscreen = false;
+    private boolean mLoop = false;
 
     // Runnable used to run code on an interval to update counters and seeker
     private final Runnable mUpdateCounters = new Runnable() {
@@ -207,6 +208,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                         Util.resolveColor(context, R.attr.colorPrimary));
 
                 mAutoFullscreen = a.getBoolean(R.styleable.EasyVideoPlayer_evp_autoFullscreen, false);
+                mLoop = a.getBoolean(R.styleable.EasyVideoPlayer_evp_loop, false);
             } finally {
                 a.recycle();
             }
@@ -218,6 +220,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
             mControlsDisabled = false;
             mThemeColor = Util.resolveColor(context, R.attr.colorPrimary);
             mAutoFullscreen = false;
+            mLoop = false;
         }
 
         if (mRetryText == null)
@@ -601,6 +604,13 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
         this.mAutoFullscreen = autoFullscreen;
     }
 
+    @Override
+    public void setLoop(boolean loop) {
+        mLoop = loop;
+        if (mPlayer != null)
+            mPlayer.setLooping(loop);
+    }
+
     // Surface listeners
 
     @Override
@@ -745,6 +755,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
         mPlayer.setOnVideoSizeChangedListener(this);
         mPlayer.setOnErrorListener(this);
         mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mPlayer.setLooping(mLoop);
 
         // Instantiate and add TextureView for rendering
         final FrameLayout.LayoutParams textureLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,

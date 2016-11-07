@@ -15,6 +15,7 @@ import android.support.annotation.StringRes;
 /**
  * @author Aidan Follestad (afollestad)
  */
+@SuppressWarnings("unused")
 interface IUserMethods {
 
     void setSource(@NonNull Uri source);
@@ -105,4 +106,6 @@ interface IUserMethods {
     void release();
 
     void setAutoFullscreen(boolean autoFullScreen);
+
+    void setLoop(boolean loop);
 }

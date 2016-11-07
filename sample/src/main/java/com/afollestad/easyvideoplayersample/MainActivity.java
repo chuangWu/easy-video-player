@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements EasyVideoCallback
         player = (EasyVideoPlayer) findViewById(R.id.player);
         assert player != null;
         player.setCallback(this);
-        player.setAutoFullscreen(true);
+        player.setLoop(true);
         // All further configuration is done from the XML layout.
     }
 

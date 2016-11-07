@@ -293,6 +293,8 @@ player.setVolume(float, float);
 
 // Sets whether or not the player will toggle fullscreen for its Activity when tapped.
 player.setAutoFullscreen(false);
+// Sets whether or not the player will start playback over when reaching the end.
+player.setLoop(false);
 ```
 
 ---
@@ -320,5 +322,6 @@ The programmatic configuration options shown above can also be configured direct
     app:evp_source="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
     app:evp_submitText="@string/evp_submit"
     app:evp_themeColor="@color/color_primary"
-    app:evp_autoFullscreen="false" />
+    app:evp_autoFullscreen="false"
+    app:evp_loop="false" />
 ```
