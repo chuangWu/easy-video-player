@@ -12,8 +12,6 @@ video playback working.
 * *Very configurable.* There are lots of options available to make the player behave exactly how you want it to behave.
 * *Adaptive.* The player use the colors of your (AppCompat) Activity theme automatically.
 
-You can download a [sample APK here](https://raw.githubusercontent.com/afollestad/easy-video-player/master/sample.apk).
-
 ---
 
 ## Gradle Dependency
