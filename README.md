@@ -38,7 +38,7 @@ If it doesn't resolve through jCenter (like it *should*), add this to your app/b
 
 ```gradle
 maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
-``
+```
 
 ## Getting Started
 
