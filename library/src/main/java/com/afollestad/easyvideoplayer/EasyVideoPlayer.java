@@ -814,6 +814,8 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         controlsLp.gravity = Gravity.BOTTOM;
         addView(mControlsFrame, controlsLp);
+
+        final EasyVideoPlayer easyVideoPlayer = this;
         if (mControlsDisabled) {
             mClickFrame.setOnClickListener(null);
             mControlsFrame.setVisibility(View.GONE);
@@ -822,6 +824,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                 @Override
                 public void onClick(View view) {
                     toggleControls();
+                    mCallback.onClickVideoFrame(easyVideoPlayer);
                 }
             });
         }

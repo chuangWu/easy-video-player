@@ -78,4 +78,10 @@ public class MainActivity extends AppCompatActivity implements EasyVideoCallback
     public void onSubmit(EasyVideoPlayer player, Uri source) {
         Toast.makeText(this, "Submit", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onClickVideoFrame(EasyVideoPlayer player) {
+        Toast.makeText(this, "Click video frame.", Toast.LENGTH_SHORT).show();
+
+    }
 }
