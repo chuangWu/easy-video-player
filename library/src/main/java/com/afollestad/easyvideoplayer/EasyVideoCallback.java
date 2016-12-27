@@ -24,4 +24,6 @@ public interface EasyVideoCallback {
     void onRetry(EasyVideoPlayer player, Uri source);
 
     void onSubmit(EasyVideoPlayer player, Uri source);
+
+    void onClickVideoFrame(EasyVideoPlayer player);
 }

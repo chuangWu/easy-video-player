@@ -776,10 +776,15 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     protected void onFinishInflate() {
         super.onFinishInflate();
 
+        if(isInEditMode()) {
+            return;
+        }
+
         setKeepScreenOn(true);
 
         mHandler = new Handler();
         mPlayer = new MediaPlayer();
+
         mPlayer.setOnPreparedListener(this);
         mPlayer.setOnBufferingUpdateListener(this);
         mPlayer.setOnCompletionListener(this);
@@ -814,6 +819,9 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         controlsLp.gravity = Gravity.BOTTOM;
         addView(mControlsFrame, controlsLp);
+
+        final EasyVideoPlayer easyVideoPlayer = this;
+
         if (mControlsDisabled) {
             mClickFrame.setOnClickListener(null);
             mControlsFrame.setVisibility(View.GONE);
@@ -822,6 +830,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                 @Override
                 public void onClick(View view) {
                     toggleControls();
+                    mCallback.onClickVideoFrame(easyVideoPlayer);
                 }
             });
         }
