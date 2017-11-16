@@ -4,9 +4,9 @@ ext {
     PUBLISH_GROUP_ID = 'com.afollestad'
     PUBLISH_ARTIFACT_ID = 'easyvideoplayer'
     PUBLISH_VERSION = '0.3.0'
-    TARGET_SDK = 25
-    BUILD_TOOLS = "24.0.3"
-    GOOGLE_LIBS = "25.3.1"
+    TARGET_SDK = 27
+    BUILD_TOOLS = "26.0.2"
+    GOOGLE_LIBS = "27.0.1"
 }
 
 android {
@@ -29,7 +29,6 @@ android {
     lintOptions {
         abortOnError false
     }
-    buildToolsVersion '25.0.0'
 }
 
 dependencies {
@@ -38,3 +37,7 @@ dependencies {
 }
 
 apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-lib-release.gradle'
+
+repositories {
+    google()
+}
