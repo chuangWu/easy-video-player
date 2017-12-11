@@ -447,7 +447,6 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
         mBtnSubmit.setAlpha(enabled ? 1f : disabledAlpha);
         mBtnRestart.setAlpha(enabled ? 1f : disabledAlpha);
 
-        mClickFrame.setEnabled(enabled);
     }
 
     @Override
@@ -510,21 +509,12 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     public void enableControls(boolean andShow) {
         mControlsDisabled = false;
         if (andShow) showControls();
-        mClickFrame.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleControls();
-            }
-        });
-        mClickFrame.setClickable(true);
     }
 
     @Override
     public void disableControls() {
         mControlsDisabled = true;
         mControlsFrame.setVisibility(View.GONE);
-        mClickFrame.setOnClickListener(null);
-        mClickFrame.setClickable(false);
     }
 
     @CheckResult
