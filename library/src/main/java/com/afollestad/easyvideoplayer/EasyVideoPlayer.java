@@ -822,18 +822,17 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
 
         final EasyVideoPlayer easyVideoPlayer = this;
 
-        if (mControlsDisabled) {
-            mClickFrame.setOnClickListener(null);
-            mControlsFrame.setVisibility(View.GONE);
-        } else {
-            mClickFrame.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        mClickFrame.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mControlsDisabled) {
                     toggleControls();
-                    mCallback.onClickVideoFrame(easyVideoPlayer);
                 }
-            });
-        }
+                mCallback.onClickVideoFrame(easyVideoPlayer);
+            }
+        });
+        mControlsFrame.setVisibility(View.GONE);
+
 
 
         // Retrieve controls
