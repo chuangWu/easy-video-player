@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Aidan Follestad (afollestad)
  */
-class Util {
+public class Util {
 
     public static String getDurationString(long durationMs, boolean negativePrefix) {
         return String.format(Locale.getDefault(), "%s%02d:%02d",
