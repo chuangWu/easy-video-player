@@ -6,7 +6,7 @@ ext {
     PUBLISH_VERSION = '0.3.0'
     TARGET_SDK = 27
     BUILD_TOOLS = "26.0.2"
-    GOOGLE_LIBS = "27.0.1"
+    GOOGLE_LIBS = "27.1.1"
 }
 
 android {
