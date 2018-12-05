@@ -5,7 +5,7 @@ ext {
     PUBLISH_ARTIFACT_ID = 'easyvideoplayer'
     PUBLISH_VERSION = '0.3.0'
     TARGET_SDK = 27
-    BUILD_TOOLS = "26.0.2"
+    BUILD_TOOLS = "28.0.3"
     GOOGLE_LIBS = "27.1.1"
 }
 
@@ -32,8 +32,8 @@ android {
 }
 
 dependencies {
-    compile 'me.zhanghai.android.materialprogressbar:library:1.1.7'
-    compile "com.android.support:appcompat-v7:$GOOGLE_LIBS"
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.1.7'
+    implementation "com.android.support:appcompat-v7:$GOOGLE_LIBS"
 }
 
 //apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-lib-release.gradle'
