@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.AttrRes;
+
+import androidx.annotation.AttrRes;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
