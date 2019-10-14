@@ -32,8 +32,8 @@ android {
 }
 
 dependencies {
-    implementation 'me.zhanghai.android.materialprogressbar:library:1.1.7'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
 }
 
 //apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-lib-release.gradle'
