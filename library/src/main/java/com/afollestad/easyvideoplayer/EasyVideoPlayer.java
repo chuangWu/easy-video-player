@@ -18,6 +18,19 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Surface;
+import android.view.TextureView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.annotation.CheckResult;
 import androidx.annotation.ColorInt;
@@ -34,19 +47,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Surface;
-import android.view.TextureView;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.lang.annotation.Retention;
@@ -515,7 +515,9 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     @Override
     public void disableControls() {
         mControlsDisabled = true;
-        mControlsFrame.setVisibility(View.GONE);
+        if (mControlsFrame != null) {
+            mControlsFrame.setVisibility(View.GONE);
+        }
     }
 
     @CheckResult
