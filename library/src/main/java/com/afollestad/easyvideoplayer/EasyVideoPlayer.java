@@ -112,6 +112,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     private MediaPlayer mPlayer;
     private boolean mSurfaceAvailable;
     private boolean mIsPrepared;
+    private boolean mIsPreparing;
     private boolean mWasPlaying;
     private int mInitialTextureWidth;
     private int mInitialTextureHeight;
@@ -419,11 +420,12 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
             LOG("Loading local URI: " + mSource.toString());
             mPlayer.setDataSource(getContext(), mSource);
         }
+        mIsPreparing = true;
         mPlayer.prepareAsync();
     }
 
     private void prepare() {
-        if (!mSurfaceAvailable || mSource == null || mPlayer == null || mIsPrepared)
+        if (!mSurfaceAvailable || mSource == null || mPlayer == null || mIsPrepared || mIsPreparing)
             return;
         if (mCallback != null)
             mCallback.onPreparing(this);
@@ -671,6 +673,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
         LOG("onPrepared()");
         mProgressFrame.setVisibility(View.INVISIBLE);
         mIsPrepared = true;
+        mIsPreparing = false;
         if (mCallback != null)
             mCallback.onPrepared(this);
         mLabelPosition.setText(Util.getDurationString(0, false));
