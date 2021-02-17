@@ -241,7 +241,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     @Override
     public void setSource(@NonNull Uri source) {
         boolean hadSource = mSource != null;
-        if (hadSource) stop();
+        if (hadSource && mIsPrepared) stop();
         mSource = source;
         if (mPlayer != null) {
             if (hadSource) {
@@ -531,7 +531,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     @CheckResult
     @Override
     public boolean isPlaying() {
-        return mPlayer != null && mPlayer.isPlaying();
+        return mPlayer != null && mIsPrepared && mPlayer.isPlaying();
     }
 
     @CheckResult
@@ -544,7 +544,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     @CheckResult
     @Override
     public int getDuration() {
-        if (mPlayer == null) return -1;
+        if (mPlayer == null || !mIsPrepared) return -1;
         return mPlayer.getDuration();
     }
 
@@ -582,7 +582,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
 
     @Override
     public void stop() {
-        if (mPlayer == null) return;
+        if (mPlayer == null || !mIsPrepared) return;
         try {
             mPlayer.stop();
         } catch (Throwable ignored) {
