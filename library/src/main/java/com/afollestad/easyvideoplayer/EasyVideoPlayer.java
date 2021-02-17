@@ -551,7 +551,11 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     @Override
     public void start() {
         if (mPlayer == null) return;
-        mPlayer.start();
+        if (mIsPrepared) {
+            mPlayer.start();
+        } else {
+            setAutoPlay(true);
+        }
         if (mCallback != null) mCallback.onStarted(this);
         if (mHandler == null) mHandler = new Handler();
         mHandler.post(mUpdateCounters);
